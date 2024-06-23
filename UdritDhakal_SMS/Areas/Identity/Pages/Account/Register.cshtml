@@ -1,0 +1,103 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+    }
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1>
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <h2 class="text-center mb-4">Create a new account</h2>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- Name fields in one row -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" placeholder="First Name" required />
+                                    <label asp-for="Input.FirstName">First Name</label>
+                                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input asp-for="Input.MiddleName" class="form-control" autocomplete="middlename" placeholder="Middle Name" />
+                                    <label asp-for="Input.MiddleName">Middle Name</label>
+                                    <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" placeholder="Last Name" required />
+                                    <label asp-for="Input.LastName">Last Name</label>
+                                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address and Role fields in one row -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Input.Address" class="form-control" autocomplete="address" placeholder="Address" required />
+                                    <label asp-for="Input.Address">Address</label>
+                                    <span asp-validation-for="Input.Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select asp-for="Input.UserRoleId" class="form-control">
+                                        <option value=null>Please Select</option>
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="STUDENT">STUDENT</option>
+                                    </select>
+                                    <label asp-for="Input.UserRoleId">User Role</label>
+                                    <span asp-validation-for="Input.UserRoleId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email field -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" required />
+                            <label asp-for="Input.Email">Email address</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password field -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" placeholder="Password" required />
+                            <label asp-for="Input.Password">Password</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Confirm Password field -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="Confirm Password" required />
+                            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button id="registerSubmit" type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

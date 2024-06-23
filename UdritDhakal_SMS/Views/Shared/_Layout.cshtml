@@ -1,0 +1,206 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using UdritDhakal_SMS.Data
+@inject SignInManager<AppUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UdritDhakal_SMS</title>
+    <link href="~/css/q.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/UdritDhakal_SMSstyles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-top: 70px; /* Adjust based on the navbar height */
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            height: 100vh;
+            width: 240px;
+            position: fixed;
+            top: 75px; /* Adjust based on the navbar height */
+            left: 0;
+            background-color: darkgray; /* Dark Gray */
+            padding-top: 10px;
+            overflow-y: auto;
+            transition: width 0.3s, opacity 0.3s;
+        }
+
+            .sidebar.hidden {
+                width: 0;
+                opacity: 0;
+                overflow: hidden;
+            }
+
+            .sidebar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+                transition: background-color 0.3s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #495057; /* Darker Gray for hover effect */
+                }
+
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
+            transition: margin-left 0.3s;
+            background-color: ghostwhite;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+            .content.expanded {
+                margin-left: 0;
+            }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .sidebar .dropdown-menu {
+            position: static;
+            float: none;
+            width: auto;
+            margin-top: 0;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            transition: none;
+            background-color: #A0E8CD;
+            color: black;
+        }
+
+        #sidebarToggle {
+            /* Reset all styles */
+            border: none;
+            background: none;
+            padding: 0;
+            margin: 0;
+            color: inherit;
+            font-size: inherit;
+            cursor: pointer;
+        }
+
+            #sidebarToggle:focus {
+                outline: none; /* Remove outline on focus */
+            }
+
+
+        .sidebar .dropdown-menu a {
+            padding: 10px 20px; /* Adjust padding as needed */
+        }
+
+            .sidebar .dropdown-menu a:hover {
+                background-color: #D4F2EE;
+            }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button id="sidebarToggle" class="btn btn-primary">
+                    <i class="fas fa-bars"></i>
+                </button>
+                @*  <a class="navbar-brand mx-2" asp-area="" asp-controller="Student" asp-action="Index">Student Management System</a> *@
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    @*  <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-area="" asp-controller="Student" asp-action="Index">Student Information</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Course" asp-action="Index">Course Information</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">AboutUs</a>
+                    </div>
+                    </li>
+                    </ul> *@
+                    <ul class="navbar-nav me-auto">
+                    </ul>
+                    <partial name="_LoginPartial" />
+                    @* <form class="d-flex">
+                    <input class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form> *@
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main-content">
+        <div class="sidebar">
+            <ul class="navbar-nav">
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("ADMIN"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index"><i class="fa-solid fa-graduation-cap"></i> Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index"><i class="fa-solid fa-book-open"></i> Course</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Url.Action("WelcomeMessage", "Home", new { area = "" })"><i class="fa-regular fa-address-card"></i> Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index"><i class="fa-solid fa-users-gear"></i> User Management</a>
+                    </li>
+                }
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("STUDENT"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index"><i class="fa-solid fa-list"></i>StudentList</a>
+                    </li>
+                }
+                @*  <li class="nav-item">
+                <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Url.Action("Index", "Student", new { area = "" })"><i class="fa-regular fa-address-card"></i> Register</a>
+                </li> *@
+            </ul>
+        </div>
+        <div class="content">
+            <main role="main" class="pb-3">
+                <partial name="_Notification" />
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('hidden');
+            document.querySelector('.content').classList.toggle('expanded');
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

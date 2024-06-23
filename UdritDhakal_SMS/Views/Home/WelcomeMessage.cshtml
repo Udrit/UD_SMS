@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Welcome Page";
+    var firstName = ViewBag.FirstName as string;
+}
+
+<style>
+    .welcome-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding-top: 20px;
+        background: linear-gradient(135deg, grey 0%, green 100%);
+        color: mediumpurple;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-card {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 10px;
+        padding: 20px 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+        .welcome-card h1 {
+            font-size: 2.5rem;
+        }
+
+        .welcome-card p {
+            font-size: 1.2rem;
+        }
+</style>
+
+<div class="welcome-container">
+    <div class="card welcome-card text-center">
+        @if (User.IsInRole("ADMIN"))
+        {
+            <h1 class="display-4"><b>Welcome ADMIN, @firstName!</b></h1>
+
+        }
+        else if (User.IsInRole("STUDENT"))
+        {
+            <h1 class="display-4"><b>Welcome @firstName!</b></h1>
+
+        }
+        else
+        {
+            <h1 class="display-4"><b>Welcome, @firstName!</b></h1>
+        }
+    </div>
+</div>

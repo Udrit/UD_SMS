@@ -1,0 +1,53 @@
+﻿@model IEnumerable<UdritDhakal_SMS.Models.Entity.CourseInfo>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    th {
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Course Information</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="table-success">
+                        <th>@Html.DisplayNameFor(model => model.CourseName)</th>
+                        <th>@Html.DisplayNameFor(model => model.CourseDescription)</th>
+                        @*                         <th>@Html.DisplayNameFor(model => model.Credits)</th> *@
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-light">
+                            <td>@item.CourseName</td>
+                            <td>@item.CourseDescription</td>
+                            @*  <td>@item.Credits</td> *@
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm" asp-action="AddEdit" asp-route-id="@item.Id"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+                                <a class="btn btn-outline-danger btn-sm" asp-action="Delete" onclick="return confirm('Are you sure you want to delete this Course?')" asp-route-id="@item.Id"><i class="fa-solid fa-user-slash"></i> Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <a class="btn btn-outline-primary float-end" asp-action="AddEdit"><i class="fa-solid fa-scroll"></i> Add Course</a>
+        </div>
+    </div>
+</div>

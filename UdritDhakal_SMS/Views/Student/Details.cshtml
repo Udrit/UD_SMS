@@ -1,0 +1,125 @@
+﻿@model UdritDhakal_SMS.Models.Entity.StudentInfo
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="card-title">Student Details</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Name:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.Name</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Email:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.Email</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Phone Number:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.PhoneNumber</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Gender:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.Gender</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Address:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.Address</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Class:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.Class</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Course Name:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.CourseInfo.CourseName</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Description:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.CourseInfo.CourseDescription</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Section:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@Model.Section</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 font-weight-bold">
+                            Active:
+                        </div>
+                        <div class="col-md-8">
+                            <p>@(Model.IsActive ? "Yes" : "No")</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-6 text-center">
+                    <div class="mt-4">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="/@Model.ImageUrl" class="img-thumbnail" style="max-height:200px; max-width:100%;">
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
